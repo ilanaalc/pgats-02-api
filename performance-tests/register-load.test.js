@@ -4,6 +4,11 @@ import { check, sleep } from 'k6';
 export let options = {
   vus: 10, // usuários virtuais
   duration: '10s', // tempo de execução
+
+  threshold: {
+    http_req_duration: ['p(95)<200'],
+    http_req_failed: ['rate<0.01']
+  }
 };
 
 export default function () {
