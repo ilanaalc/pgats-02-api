@@ -1,6 +1,7 @@
 import http from 'k6/http';
-import { obterToken } from '../helpers/autenticacao.js';
 import { check, sleep } from 'k6';
+import { obterToken } from '../helpers/autenticacao.js';
+import { pegarBaseURL } from '../utils/variaveis.js';
 
 export const options = {
     vus: 10,
@@ -15,7 +16,7 @@ export const options = {
 export default function() {
     const token = obterToken();
 
-    const url = 'http://localhost:3000/transfers'
+    const url = pegarBaseURL() + '/transfers';
 
     const payload = JSON.stringify({
         from: "julio",
