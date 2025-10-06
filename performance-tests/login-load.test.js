@@ -1,5 +1,6 @@
 import http from 'k6/http';
 import { check, sleep } from 'k6';
+import { pegarBaseURL } from '../utils/variaveis.js';
 
 export const options = {
   vus: 20,          // 20 usuários virtuais
@@ -12,10 +13,10 @@ export const options = {
 };
 
 export default function () {
-  const url = 'http://localhost:3000/users/login';
+  const url = pegarBaseURL() + '/users/login';
 
   const payload = JSON.stringify({
-    username: "luciana",
+    username: "julio",
     password: "123456"
   });
 
