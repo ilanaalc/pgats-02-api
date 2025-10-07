@@ -9,7 +9,7 @@ describe('Registro de Usuário', () => {
             .post('/users/register')
             .set('Content-Type', 'application/json')
             .send({
-                username: "usuario2",
+                username: `user_${Math.random()}`,
                 password: "123456",
                 favorecidos: [
                     "usuario3"
