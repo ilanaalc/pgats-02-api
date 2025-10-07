@@ -1,28 +1,23 @@
 const request = require('supertest')
 const { expect } = require('chai')
+const { obterToken } = require('../helpers/login.js')
+const postTranferencia = require('../fixtures/postTransferencia.json')
 require('dotenv').config()
 
 describe('Transferência', () => {
+    let token
+
+    beforeEach ( async () => {
+        token = await obterToken('julio', '123456')
+    })
+
     describe('POST /transfers', () => {
         it('Deve retornar sucesso com 201 quando realizar uma transferência para um usuário registrado', async () => {
-            const respostaLogin = await request(process.env.BASE_URL)
-            .post('/users/login')
-            .set('Content-Type', 'application/json')
-            .send({
-                username: "julio",
-                password: "123456"
-            })
-            const token = respostaLogin.body.token
-
             const resposta = await request(process.env.BASE_URL)
             .post('/transfers')
             .set('Content-Type', 'application/json')
             .set('Authorization',`Bearer ${token}`)
-            .send({
-                from: "julio",
-                to: "priscila",
-                value: 5
-            })
+            .send(postTranferencia)
             expect(resposta.status).to.equal(201)
         })
     })
