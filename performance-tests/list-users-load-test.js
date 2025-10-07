@@ -1,6 +1,6 @@
 import http from 'k6/http';
-import { check } from 'k6';
-import { sleep } from 'k6';
+import { check, sleep } from 'k6';
+import { pegarBaseURL } from '../utils/variaveis.js';
 
 export const options = {
     vus: 10,
@@ -13,8 +13,8 @@ export const options = {
 }
 
 export default function () {
-  const res = http.get('http://localhost:3000/users')
-
+  const res = http.get(pegarBaseURL() + '/users')
+  
   check (res, {
     'Validar que o status é 200': (r) => r.status ===200,
 
