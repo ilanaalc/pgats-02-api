@@ -3,8 +3,8 @@ import { check, sleep } from 'k6';
 import { pegarBaseURL } from '../utils/variaveis.js';
 
 export const options = {
-  vus: 20,          // 20 usuários virtuais
-  duration: '15s',  // durante 15 segundos
+  vus: 20,          
+  duration: '15s',  
 
   thresholds: {
     http_req_duration: ['p(95)<200'],
@@ -31,5 +31,5 @@ export default function () {
     'Validar que o token é uma string': (r) => typeof (r.json().token) == 'string',
   });
 
-  sleep(1); // pausa de 1s entre execuções
+  sleep(1);
 }
