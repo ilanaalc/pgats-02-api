@@ -4,7 +4,7 @@ import { pegarBaseURL } from '../utils/variaveis.js';
 
 export const options = {
   vus: 20,          
-  duration: '15s',  
+  duration: '30s',  
 
   thresholds: {
     http_req_duration: ['p(95)<200'],

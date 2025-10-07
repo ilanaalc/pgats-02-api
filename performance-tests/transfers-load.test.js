@@ -4,8 +4,8 @@ import { obterToken } from '../helpers/autenticacao.js';
 import { pegarBaseURL } from '../utils/variaveis.js';
 
 export const options = {
-    vus: 10,
-    duration: '10s',
+    vus: 20,
+    duration: '30s',
 
     thresholds: {
         http_req_duration: ['p(95)<200'],
