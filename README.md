@@ -76,6 +76,111 @@ Rode `npm run start-graphql` para executar a API do GraphQL e acesse a URL http:
 - O arquivo `app.js` pode ser importado em ferramentas de teste como Supertest.
 - Para testar a API GraphQL, importe `graphql/app.js` nos testes.
 
+Para dúvidas, consulte a documentação Swagger, GraphQL Playground ou o código-fonte.
 ---
 
-Para dúvidas, consulte a documentação Swagger, GraphQL Playground ou o código-fonte.
+# 🔍 pgats-02-api - Testes de API e Performance
+
+## 🤖 Testes de API e Performance
+
+Esta seção descreve a estrutura, as tecnologias e o modo de execução dos testes da API Rest (Supertest) e de performance (k6) adicionados a este repositório.
+
+---
+
+### Introdução dos Testes
+
+Este projeto contém um conjunto de testes de **API REST** utilizando a biblioteca **Supertest** e testes de **Performance** com o **k6**. O objetivo é realizar testes funcionais da API e também não funcionais sob diferentes cargas. A estrutura de testes foi implementada como um incremento (*fork*) a uma API Node.js já existente.
+
+---
+
+### 💻 Tecnologias Utilizadas
+
+| Categoria | Tecnologia | Uso |
+| :--- | :--- | :--- |
+| Teste Funcional | **Supertest** | Execução de requisições HTTP e validação de *endpoints* da API. |
+| Teste de Performance | **k6 (Javascript)** | Simulação de carga para avaliação de desempenho da API. |
+| Auxiliares | **Dotenv** | Gerenciamento de variáveis de ambiente. |
+
+---
+
+### 📂 Estrutura de Pastas e Objetivo dos Arquivos
+
+A seguir, a descrição das pastas adicionadas para a execução dos testes:
+
+| Pasta | Objetivo Principal |
+| :--- | :--- |
+| **`config`** | Arquivo de configuração de variáveis de ambiente para o k6. |
+| **`fixtures`** | Contém **dados estáticos** (*payloads*, dados de entrada, massas de teste) necessários para os testes de API. |
+| **`helpers`** | Contém **funções reutilizáveis** que simplificam a escrita dos testes, como a função de realizar login. |
+| **`test`** | Contém os **testes funcionais da API** escritos com **Supertest**. |
+| **`performance-tests`** | Contém os **scripts de teste de performance** escritos em JavaScript para o **k6**. |
+| **`utils`** | Armazenar **utilitários gerais** que podem ser usados por diversas partes do projeto. |
+
+---
+
+### 🛠️ Instalação e Configuração
+
+#### Pré-requisitos
+Certifique-se de ter o **Node.js**, **npm** e o **k6** instalados em sua máquina.
+Caso não esteja, siga as instruções em: <https://k6.io/docs/get-started/installation/>
+
+#### 1. Clonar o Repositório
+```bash
+git clone https://github.com/ilanaalc/pgats-02-api.git
+cd pgats-02-api
+
+```
+
+---
+
+## 2. Instalar as Dependências
+
+```bash
+npm install
+```
+
+---
+
+## 3. Configurar Variáveis de Ambiente
+
+Crie um arquivo chamado `.env` na raiz do projeto e adicione a variável `BASE_URL` que será usada pelo **Supertest**:
+
+```env
+BASE_URL="http://localhost:3000" 
+```
+
+---
+
+## 🚀 Execução dos Testes
+
+### 1. Execução dos Testes Funcionais (Supertest)
+
+Para executar os testes de API, use o comando `npm test`.  
+Certifique-se de que a API de destino esteja em execução e a variável `BASE_URL` esteja configurada no arquivo `.env`.
+
+```bash
+npm test
+```
+
+---
+
+### 2. Execução dos Testes de Performance (k6)
+
+O **k6** requer que a variável de ambiente `BASE_URL` seja passada no comando para saber qual API testar.
+
+**Exemplo de execução básica:**
+
+```bash
+k6 run performance-tests/nome_do_teste.test.js -e BASE_URL=http://localhost:3000
+```
+
+---
+
+### 3. Execução do k6 com Relatório em Tempo Real e Exportação
+
+Para monitorar o desempenho em um **dashboard web em tempo real** e exportar um **relatório HTML** automaticamente, utilize as variáveis de ambiente do próprio k6 conforme o exemplo:
+
+```bash
+K6_WEB_DASHBOARD=true K6_WEB_DASHBOARD_EXPORT=html-report.html k6 run performance-tests/nome_do_teste.test.js -e BASE_URL=http://localhost:3000
+```
+

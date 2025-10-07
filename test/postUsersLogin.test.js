@@ -7,7 +7,6 @@ require('dotenv').config();
 describe('Login de Usuário', () => {
   describe('POST /users/login', () => {
     beforeEach(async () => {
-      // Registra o usuário antes de cada teste
       await request(process.env.BASE_URL)
         .post('/users/register')
         .send({
