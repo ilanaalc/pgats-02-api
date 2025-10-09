@@ -4,7 +4,7 @@ const { obterToken } = require('../helpers/login.js')
 const postTranferencia = require('../fixtures/postTransferencia.json')
 require('dotenv').config()
 
-describe('Transferência', () => {
+describe('Transferências', () => {
     let token
 
     beforeEach ( async () => {
@@ -20,5 +20,17 @@ describe('Transferência', () => {
             .send(postTranferencia)
             expect(resposta.status).to.equal(201)
         })
+    })
+
+    describe('GET /transfers', () => {
+        it('Deve retornar 200 ao listar as transferências com um usuário autenticado', async () => {
+            const resposta = await request(process.env.BASE_URL)
+            .get('/transfers')
+            .set('Content-Type', 'application/json')
+            .set('Authorization', `Bearer ${token}`)
+
+            expect(resposta.status).to.equal(200)
+        })
+
     })
 })
