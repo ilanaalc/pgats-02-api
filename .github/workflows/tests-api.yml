@@ -1,0 +1,28 @@
+name: Tests API CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  tests:
+    run-on: ubuntu-latest
+
+    env:
+    BASE_URL: 'http://localhost:3000'
+
+    steps:
+    
+    - name: Checkout do Repositório
+      uses: actions/checkout@v4
+
+    - name: Instalando as dependências
+      run: npm install
+
+    - name: Iniciando o servidor
+      run: node server.js
+    
+    - name: Executando os testes
+      run: npm tests
