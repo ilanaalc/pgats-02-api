@@ -25,4 +25,4 @@ jobs:
       run: node server.js &
     
     - name: Executando os testes
-      run: npm tests
+      run: npm test
