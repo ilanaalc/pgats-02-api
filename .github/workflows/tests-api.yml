@@ -8,10 +8,10 @@ on:
 
 jobs:
   tests:
-    run-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
     env:
-    BASE_URL: 'http://localhost:3000'
+      BASE_URL: 'http://localhost:3000'
 
     steps:
     
@@ -22,10 +22,7 @@ jobs:
       run: npm install
 
     - name: Iniciando o servidor
-      run: node server.js
-    
-    - name: Executando os testes
-      run: npm tests
+      run: node server.js &   # roda em background
 
     - name: Executando os testes
       run: |
