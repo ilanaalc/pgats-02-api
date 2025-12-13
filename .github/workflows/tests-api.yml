@@ -2,9 +2,9 @@ name: Tests API CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   tests:
@@ -14,23 +14,24 @@ jobs:
       BASE_URL: 'http://localhost:3000'
 
     steps:
-    
-    - name: Checkout do Repositório
-      uses: actions/checkout@v4
 
-    - name: Instalando as dependências
-      run: npm install
+      - name: Checkout do Repositório
+        uses: actions/checkout@v4
 
-    - name: Iniciando o servidor
-      run: node server.js &   # roda em background
+      - name: Instalando as dependências
+        run: npm install
 
-    - name: Executando os testes
-      run: |
-        mkdir -p mochawesome-report
-        npx mocha tests --reporter mochawesome || exit 1
+      - name: Iniciando o servidor
+        run: |
+          nohup node server.js &
 
-    - name: Salvando o relatório como artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: mochawesome-report
-        path: mochawesome-report
+      - name: Executando os testes
+        run: |
+          mkdir -p mochawesome-report
+          npx mocha tests --reporter mochawesome || exit 1
+
+      - name: Salvando o relatório como artifact
+        uses: actions/upload-artifact@latest
+        with:
+          name: mochawesome-report
+          path: mochawesome-report
